@@ -1,16 +1,30 @@
 required_providers {
-    tfcoremock = {
-        source = "hashicorp/tfcoremock"
-        version = "0.3.0"
-    }
+  random = {
+    source  = "hashicorp/random"
+    version = "~> 3.5.1"
+  }
+
+  bombnull = {
+    source  = "app.terraform.io/nicktech/bombnull"
+    version = "4.1.3"
+  }
 }
 
-provider "tfcoremock" "main" {}
+variable "prefix" {
+  type = string
+}
 
-component "one" {
-    source = "app.terraform.io/liamcervante/simple/module"
-    version = "0.2.0"
-    providers = {
-        tfcoremock = provider.tfcoremock.main
-    }
+provider "random" "this" {}
+provider "bombnull" "this" {}
+
+component "bomb" {
+  source = "./bomb"
+  providers = {
+    random   = provider.random.this
+    bombnull = provider.bombnull.this
+  }
+
+  inputs = {
+    prefix = var.prefix
+  }
 }

@@ -1,2 +1,6 @@
 
-deployment "testing" {}
+deployment "testing" {
+  inputs = {
+    prefix = "simple"
+  }
+}
