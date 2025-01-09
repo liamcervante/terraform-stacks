@@ -33,3 +33,14 @@ component "bomb" {
     prefix = var.prefix
   }
 }
+
+component "child" {
+  source = "./child"
+  providers = {
+    tfcoremock = provider.tfcoremock.this
+  }
+
+  inputs = {
+    value = component.bomb.test
+  }
+}

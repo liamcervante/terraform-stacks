@@ -26,3 +26,7 @@ resource "tfcoremock_simple_resource" "da_bomb" {
   id = "fail_on_delete"
   string = random_pet.this.id
 }
+
+output "test" {
+  value = random_pet.this.id
+}
