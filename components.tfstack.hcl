@@ -8,7 +8,7 @@ required_providers {
 
 variable "aws_token" {
   type = string
-  ehpemeral = true
+  ephemeral = true
 }
 
 provider "aws" "main" {
@@ -25,6 +25,6 @@ component "main" {
     source = "./main"
     
     providers = {
-        tfcoremock = provider.tfcoremock.main
+        aws = provider.aws.main
     }
 }
