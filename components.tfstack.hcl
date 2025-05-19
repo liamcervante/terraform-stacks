@@ -1,30 +1,25 @@
 
 required_providers {
-  aws = {
-    source = "hashicorp/aws"
-    version = "5.90.0"
+  tfcoremock = {
+    source = "hashicorp/tfcoremock"
+    version = "0.5.0"
   }
 }
 
-variable "aws_token" {
-  type = string
-  ephemeral = true
-}
-
-provider "aws" "main" {
+provider "tfcoremock" "main" {
   config {
-    region = "eu-central-1"
-    assume_role_with_web_identity {
-      role_arn           = "arn:aws:iam::931787512616:role/stacks-liamcervante-local-agents-terraform-stacks"
-      web_identity_token = var.aws_token
-    }
+    use_only_state = true
   }
 }
 
 component "main" {
     source = "./main"
+
+    inputs = {
+      input = "wrong"
+    }
     
     providers = {
-        aws = provider.aws.main
+        tfcoremock = provider.tfcoremock.main
     }
 }

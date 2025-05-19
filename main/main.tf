@@ -1,9 +1,13 @@
 
-resource "aws_secretsmanager_secret" "secret" {
-    name = "deleteme"
+variable "input" {
+  type = string
+
+  validation {
+    condition = var.input == "hello"
+    error_message = "bad input"
+  }
 }
 
-resource "aws_secretsmanager_secret_version" "version" {
-    secret_id = aws_secretsmanager_secret.secret.id
-    secret_string = "supersecret"
+resource "tfcoremock_simple_resource" "resource" {
+    string = var.input
 }
